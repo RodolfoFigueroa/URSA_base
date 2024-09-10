@@ -1,7 +1,7 @@
 import json
 
 import geopandas as gpd
-import ursa.utils as utils
+import ursa_base.utils as utils
 
 
 def generate_hash_files(path_cache):
