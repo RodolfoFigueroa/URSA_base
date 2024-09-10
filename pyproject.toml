@@ -6,7 +6,7 @@ authors = ["Rodolfo Figueroa"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.12"
+python = ">=3.10,<3.12"
 earthengine-api = "^1.0.0"
 osmnx = "^1.9.4"
 geopandas = "^0.14.4"
