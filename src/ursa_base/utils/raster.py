@@ -1,4 +1,4 @@
-from osgeo import gdal
+# from osgeo import gdal
 import numpy as np
 import geopandas as gpd
 import rasterio as rio
@@ -159,7 +159,7 @@ def np_from_bbox_s3(
 
     """
 
-    gdal.PushErrorHandler("CPLQuietErrorHandler")
+    # gdal.PushErrorHandler("CPLQuietErrorHandler")
 
     url = f"http://{bucket}.s3.amazonaws.com/{s3_path}"
 
