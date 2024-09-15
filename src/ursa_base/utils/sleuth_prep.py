@@ -208,7 +208,8 @@ def load_worldcover(bbox, path_cache, raster_to_match):
         print("Archivo de World Cover descargado y guardado.")
 
     print("Cargando el archivo de World Cover...")
-    worldcover = rxr.open_rasterio(fpath, name="worldcover", nodata=0.0).squeeze()
+    worldcover = rxr.open_rasterio(fpath, name="worldcover", nodata=0.).squeeze()
+    worldcover = worldcover.rio.set_nodata(0.)
     print("Archivo de World Cover cargado.")
 
     print("Reproyectando y guardando el archivo de World Cover...")
@@ -238,11 +239,12 @@ def load_slope(bbox, path_cache, raster_to_match):
         image = image.select(["b1"]).clip(bbox)
         local_download(image, bbox, fpath)
 
-    slope = rxr.open_rasterio(fpath, name="slope", nodata=0.0).squeeze()
+    slope = rxr.open_rasterio(fpath, name="slope", nodata=0.).squeeze()
+    slope = slope.rio.set_nodata(0.)
     slope = slope.rio.reproject_match(raster_to_match, Resampling.average)
     slope.name = "slope"
 
-    # Slope is must be reescaled to 0-100,
+    # Slope must be reescaled to 0-100,
     # Type must be int, zero values have issues, so use ceil
     # Zero slope values have been reported to unrealistically
     # attract urbanization. (TODO: reference needed)
@@ -277,6 +279,7 @@ def load_protected(bbox, path_cache, raster_to_match):
         local_download(image, bbox, fpath)
 
     protected_xr = rxr.open_rasterio(fpath, nodata=0).squeeze()
+    protected_xr = protected_xr.rio.set_nodata(0)
 
     protected_xr = protected_xr.rio.reproject_match(raster_to_match, Resampling.mode)
     protected_xr = protected_xr.astype("int32")
